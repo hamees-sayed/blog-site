@@ -1,7 +1,7 @@
 let postsArray = []
 const titleInput = document.getElementById("post-title")
 const bodyInput = document.getElementById("post-body")
-const form = document.getElementById("new-post")
+const postForm = document.getElementById("new-post")
 
 function renderPosts() {
     let html = ""
@@ -9,20 +9,19 @@ function renderPosts() {
         html += `
             <h3>${post.title}</h3>
             <p>${post.body}</p>
-            <hr />
-        `
+            <hr />`
     }
     document.getElementById("blog-list").innerHTML = html
 }
 
-fetch("https://apis.scrimba.com/jsonplaceholder/posts")
+fetch("https://jsonplaceholder.typicode.com/posts")
     .then(res => res.json())
     .then(data => {
         postsArray = data.slice(0, 5)
         renderPosts()
     })
 
-form.addEventListener("submit", function(e) {
+    postForm.addEventListener("submit", function (e) {
     e.preventDefault()
     const postTitle = titleInput.value
     const postBody = bodyInput.value
@@ -30,7 +29,7 @@ form.addEventListener("submit", function(e) {
         title: postTitle,
         body: postBody
     }
-    
+
     const options = {
         method: "POST",
         body: JSON.stringify(data),
@@ -38,17 +37,12 @@ form.addEventListener("submit", function(e) {
             "Content-Type": "application/json"
         }
     }
-    
-    fetch("https://apis.scrimba.com/jsonplaceholder/posts", options)
+
+    fetch("https://jsonplaceholder.typicode.com/posts", options)
         .then(res => res.json())
         .then(post => {
             postsArray.unshift(post)
             renderPosts()
-            /**
-             * Challenge: clear the form out!
-             */
-            titleInput.value = ""
-            bodyInput.value = ""
-            // form.reset()
+            postForm.reset()
         })
 })
