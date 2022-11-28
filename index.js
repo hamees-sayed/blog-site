@@ -21,7 +21,7 @@ fetch("https://jsonplaceholder.typicode.com/posts")
         renderPosts()
     })
 
-    postForm.addEventListener("submit", function (e) {
+postForm.addEventListener("submit", function (e) {
     e.preventDefault()
     const postTitle = titleInput.value
     const postBody = bodyInput.value
