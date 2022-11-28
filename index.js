@@ -25,6 +25,7 @@ fetch("https://jsonplaceholder.typicode.com/posts")
     e.preventDefault()
     const postTitle = titleInput.value
     const postBody = bodyInput.value
+    if (!postTitle && !postBody) return;
     const data = {
         title: postTitle,
         body: postBody
